@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProdutoEmprestimoRequest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-caixaverso</a> &gt; <a href="index.source.html" class="el_package">com.caixa.dto</a> &gt; <span class="el_source">ProdutoEmprestimoRequest.java</span></div><h1>ProdutoEmprestimoRequest.java</h1><pre class="source lang-java linenums">package com.caixa.dto;
+
+import java.math.BigDecimal;
+
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+public class ProdutoEmprestimoRequest {
+
+    @NotBlank(message = &quot;Nome do produto é obrigatório&quot;)
+    public String nome;
+
+    @NotNull(message = &quot;Taxa de juros anual é obrigatória&quot;)
+    @DecimalMin(value = &quot;0.0&quot;, message = &quot;Taxa de juros anual deve ser maior ou igual a 0&quot;)
+    @DecimalMax(value = &quot;100.0&quot;, message = &quot;Taxa de juros anual deve ser menor ou igual a 100&quot;)
+    public BigDecimal taxaJurosAnual;
+
+    @NotNull(message = &quot;Prazo máximo em meses é obrigatório&quot;)
+    @Positive(message = &quot;Prazo máximo em meses deve ser positivo&quot;)
+    public Integer prazoMaximoMeses;
+
+<span class="fc" id="L25">    public ProdutoEmprestimoRequest() {</span>
+<span class="fc" id="L26">    }</span>
+
+<span class="fc" id="L28">    public ProdutoEmprestimoRequest(String nome, BigDecimal taxaJurosAnual, Integer prazoMaximoMeses) {</span>
+<span class="fc" id="L29">        this.nome = nome;</span>
+<span class="fc" id="L30">        this.taxaJurosAnual = taxaJurosAnual;</span>
+<span class="fc" id="L31">        this.prazoMaximoMeses = prazoMaximoMeses;</span>
+<span class="fc" id="L32">    }</span>
+
+    public String getNome() {
+<span class="fc" id="L35">        return nome;</span>
+    }
+
+    public void setNome(String nome) {
+<span class="fc" id="L39">        this.nome = nome;</span>
+<span class="fc" id="L40">    }</span>
+
+    public BigDecimal getTaxaJurosAnual() {
+<span class="fc" id="L43">        return taxaJurosAnual;</span>
+    }
+
+    public void setTaxaJurosAnual(BigDecimal taxaJurosAnual) {
+<span class="fc" id="L47">        this.taxaJurosAnual = taxaJurosAnual;</span>
+<span class="fc" id="L48">    }</span>
+
+    public Integer getPrazoMaximoMeses() {
+<span class="fc" id="L51">        return prazoMaximoMeses;</span>
+    }
+
+    public void setPrazoMaximoMeses(Integer prazoMaximoMeses) {
+<span class="fc" id="L55">        this.prazoMaximoMeses = prazoMaximoMeses;</span>
+<span class="fc" id="L56">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

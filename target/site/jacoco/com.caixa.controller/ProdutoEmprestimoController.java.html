@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProdutoEmprestimoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">api-caixaverso</a> &gt; <a href="index.source.html" class="el_package">com.caixa.controller</a> &gt; <span class="el_source">ProdutoEmprestimoController.java</span></div><h1>ProdutoEmprestimoController.java</h1><pre class="source lang-java linenums">package com.caixa.controller;
+
+import com.caixa.dto.ProdutoEmprestimoRequest;
+import com.caixa.dto.SimulacaoEmprestimoRequest;
+import com.caixa.dto.SimulacaoEmprestimoResponse;
+import com.caixa.model.ProdutoEmprestimo;
+import com.caixa.service.ProdutoEmprestimoService;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import java.util.List;
+
+@Path(&quot;/api/produtos&quot;)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@Tag(name = &quot;Produtos de Empréstimo&quot;, description = &quot;Operações para gerenciar produtos de empréstimo&quot;)
+<span class="fc" id="L26">public class ProdutoEmprestimoController {</span>
+
+    @Inject
+    ProdutoEmprestimoService produtoEmprestimoService;
+
+    @GET
+    @Operation(
+        summary = &quot;Listar todos os produtos&quot;,
+        description = &quot;Retorna uma lista com todos os produtos de empréstimo cadastrados&quot;
+    )
+    @APIResponse(
+        responseCode = &quot;200&quot;,
+        description = &quot;Lista de produtos retornada com sucesso&quot;,
+        content = @Content(schema = @Schema(implementation = ProdutoEmprestimo.class))
+    )
+    public Response listarTodos() {
+<span class="fc" id="L42">        List&lt;ProdutoEmprestimo&gt; produtos = produtoEmprestimoService.listarTodos();</span>
+<span class="fc" id="L43">        return Response.ok(produtos).build();</span>
+    }
+
+    @GET
+    @Path(&quot;/{id}&quot;)
+    @Operation(
+        summary = &quot;Buscar produto por ID&quot;,
+        description = &quot;Retorna um produto específico baseado no ID fornecido&quot;
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = &quot;200&quot;,
+            description = &quot;Produto encontrado com sucesso&quot;,
+            content = @Content(schema = @Schema(implementation = ProdutoEmprestimo.class))
+        ),
+        @APIResponse(
+            responseCode = &quot;404&quot;,
+            description = &quot;Produto não encontrado&quot;
+        )
+    })
+    public Response buscarPorId(@PathParam(&quot;id&quot;) Long id) {
+<span class="fc" id="L64">        ProdutoEmprestimo produto = produtoEmprestimoService.buscarPorId(id);</span>
+<span class="fc" id="L65">        return Response.ok(produto).build();</span>
+    }
+
+    @POST
+    @Operation(
+        summary = &quot;Criar novo produto&quot;,
+        description = &quot;Cria um novo produto de empréstimo com as informações fornecidas&quot;
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = &quot;201&quot;,
+            description = &quot;Produto criado com sucesso&quot;,
+            content = @Content(schema = @Schema(implementation = ProdutoEmprestimo.class))
+        ),
+        @APIResponse(
+            responseCode = &quot;400&quot;,
+            description = &quot;Dados inválidos fornecidos&quot;
+        )
+    })
+    public Response criar(@Valid ProdutoEmprestimoRequest request) {
+<span class="fc" id="L85">        ProdutoEmprestimo produto = produtoEmprestimoService.criar(request);</span>
+<span class="fc" id="L86">        return Response.status(Response.Status.CREATED).entity(produto).build();</span>
+    }
+
+    @PUT
+    @Path(&quot;/{id}&quot;)
+    @Operation(
+        summary = &quot;Atualizar produto&quot;,
+        description = &quot;Atualiza um produto existente com as novas informações fornecidas&quot;
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = &quot;200&quot;,
+            description = &quot;Produto atualizado com sucesso&quot;,
+            content = @Content(schema = @Schema(implementation = ProdutoEmprestimo.class))
+        ),
+        @APIResponse(
+            responseCode = &quot;404&quot;,
+            description = &quot;Produto não encontrado&quot;
+        ),
+        @APIResponse(
+            responseCode = &quot;400&quot;,
+            description = &quot;Dados inválidos fornecidos&quot;
+        )
+    })
+    public Response atualizar(@PathParam(&quot;id&quot;) Long id, @Valid ProdutoEmprestimoRequest request) {
+<span class="fc" id="L111">        ProdutoEmprestimo produto = produtoEmprestimoService.atualizar(id, request);</span>
+<span class="fc" id="L112">        return Response.ok(produto).build();</span>
+    }
+
+    @DELETE
+    @Path(&quot;/{id}&quot;)
+    @Operation(
+        summary = &quot;Remover produto&quot;,
+        description = &quot;Remove um produto do sistema&quot;
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = &quot;204&quot;,
+            description = &quot;Produto removido com sucesso&quot;
+        ),
+        @APIResponse(
+            responseCode = &quot;404&quot;,
+            description = &quot;Produto não encontrado&quot;
+        )
+    })
+    public Response remover(@PathParam(&quot;id&quot;) Long id) {
+<span class="fc" id="L132">        produtoEmprestimoService.remover(id);</span>
+<span class="fc" id="L133">        return Response.noContent().build();</span>
+    }
+
+    @POST
+    @Path(&quot;/simulacao&quot;)
+    @Operation(
+        summary = &quot;Simular empréstimo&quot;,
+        description = &quot;Simula um empréstimo baseado no produto e parâmetros fornecidos, &quot; +
+                     &quot;retornando o detalhamento mês a mês com cálculo de juros&quot;
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = &quot;200&quot;,
+            description = &quot;Simulação realizada com sucesso&quot;,
+            content = @Content(schema = @Schema(implementation = SimulacaoEmprestimoResponse.class))
+        ),
+        @APIResponse(
+            responseCode = &quot;404&quot;,
+            description = &quot;Produto não encontrado&quot;
+        ),
+        @APIResponse(
+            responseCode = &quot;400&quot;,
+            description = &quot;Dados inválidos fornecidos&quot;
+        )
+    })
+    public Response simularEmprestimo(@Valid SimulacaoEmprestimoRequest request) {
+<span class="fc" id="L159">        SimulacaoEmprestimoResponse simulacao = produtoEmprestimoService.simularEmprestimo(request);</span>
+<span class="fc" id="L160">        return Response.ok(simulacao).build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

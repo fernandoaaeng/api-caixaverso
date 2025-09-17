@@ -1,0 +1,12 @@
+com\caixa\dto\SimulacaoEmprestimoResponse.class
+com\caixa\controller\HealthCheckController.class
+com\caixa\controller\HealthCheckController$HealthStatus.class
+com\caixa\model\ProdutoEmprestimo.class
+com\caixa\dto\ProdutoEmprestimoRequest.class
+com\caixa\service\ProdutoEmprestimoService.class
+com\caixa\controller\ProdutoEmprestimoController.class
+META-INF\panache-archive.marker
+com\caixa\dto\SimulacaoEmprestimoResponse$DetalhamentoMensal.class
+com\caixa\service\CalculoJurosService.class
+com\caixa\repository\ProdutoEmprestimoRepository.class
+com\caixa\dto\SimulacaoEmprestimoRequest.class
