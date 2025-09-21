@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.caixa.controller.HealthCheckControllerTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.275 s - in com.caixa.controller.HealthCheckControllerTest

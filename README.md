@@ -48,7 +48,7 @@ A aplicação estará disponível em: `http://localhost:8080`
 
 ## Documentação da API
 
-- Swagger UI: http://localhost:8080/q/swagger-ui
+- Swagger UI: http://localhost:8080/swagger-ui/
 - OpenAPI Spec: http://localhost:8080/q/openapi
 - Health Check: http://localhost:8080/health
 
